@@ -68,3 +68,9 @@ def update_inventory_item():
 
     serialized_item = stock_schema.dump(item_to_update)
     return jsonify({'message': 'Inventory item updated successfully', 'inventory_item': serialized_item}), 200
+
+@inventory_bp.route('/all', methods=['GET'])
+def get_all_inventory_items():
+    all_items = Stock.query.all()
+    serialized_items = stocks_schema.dump(all_items)
+    return jsonify({'inventory_items': serialized_items}), 200
