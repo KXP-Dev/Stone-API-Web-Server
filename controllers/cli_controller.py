@@ -1,6 +1,7 @@
 from flask import Blueprint
 from init import db, bcrypt
 from models.employee import Employee
+from models.stock import Stock
 
 db_commands = Blueprint('db', __name__)
 
@@ -33,7 +34,21 @@ def seed_db():
         )
     ]
     
+    stocks = [
+        Stock(
+            product_name='Calcatta',
+            quantity=30,
+            unit_price=1500
+        ),
+        Stock(
+            product_name='Black Granite',
+            quantity=50,
+            unit_price=1000
+        )
+    ]
+    
     db.session.add_all(employees)
+    db.session.add_all(stocks)
     db.session.commit()
     
     print("Tables seeded")

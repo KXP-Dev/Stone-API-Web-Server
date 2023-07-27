@@ -3,6 +3,8 @@ import os
 from init import db, ma, bcrypt, jwt
 from controllers.cli_controller import db_commands
 from controllers.auth_controller import auth_bp
+from controllers.stock_controller import inventory_bp
+from models.stock import Stock
 
 def create_app():
     app = Flask(__name__)
@@ -17,5 +19,6 @@ def create_app():
     
     app.register_blueprint(db_commands)
     app.register_blueprint(auth_bp)
+    app.register_blueprint(inventory_bp)
     
     return app
