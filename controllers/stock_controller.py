@@ -23,3 +23,20 @@ def create_inventory_item():
 
     serialized_item = stock_schema.dump(new_item)
     return jsonify({'message': 'Inventory item created successfully', 'inventory_item': serialized_item}), 201
+
+@inventory_bp.route('/delete', methods=['DELETE'])
+def delete_inventory_item():
+    data = request.get_json()
+    product_id = data.get('product_id')
+
+    if not product_id:
+        return jsonify({'message': 'Missing required field: product_id'}), 400
+
+    item_to_delete = Stock.query.get(product_id)
+    if not item_to_delete:
+        return jsonify({'message': 'Inventory item not found'}), 404
+
+    db.session.delete(item_to_delete)
+    db.session.commit()
+
+    return jsonify({'message': 'Inventory item deleted successfully'}), 200
