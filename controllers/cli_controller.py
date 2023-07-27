@@ -2,6 +2,7 @@ from flask import Blueprint
 from init import db, bcrypt
 from models.employee import Employee
 from models.stock import Stock
+from models.customers import Customer
 
 db_commands = Blueprint('db', __name__)
 
@@ -47,8 +48,24 @@ def seed_db():
         )
     ]
     
+    customers = [
+        Customer(
+            customer_name='Mariah Carey',
+            email='mariahcarey@email.com',
+            customer_number='0000000001',
+            address='123 Main Street'
+        ),
+        Customer(
+            customer_name='Jane Smith',
+            email='janesmith@email.com',
+            customer_number='0000000002',
+            address='125 Sydney Street'
+        )
+    ]
+    
     db.session.add_all(employees)
     db.session.add_all(stocks)
+    db.session.add_all(customers)
     db.session.commit()
     
     print("Tables seeded")
