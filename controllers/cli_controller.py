@@ -64,17 +64,10 @@ def seed_db():
         )
     ]
     
-    orders = [
-        Order(
-            customer_id=2,
-            total_amount=1000
-        )
-    ]
-    
     db.session.add_all(employees)
     db.session.add_all(stocks)
     db.session.add_all(customers)
-    db.session.add_all(orders)
+    #db.session.add_all(orders)
     db.session.commit()
     
     print("Tables seeded")
