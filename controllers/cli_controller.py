@@ -3,6 +3,7 @@ from init import db, bcrypt
 from models.employee import Employee
 from models.stock import Stock
 from models.customers import Customer
+from models.orders import Order
 
 db_commands = Blueprint('db', __name__)
 
@@ -63,9 +64,17 @@ def seed_db():
         )
     ]
     
+    orders = [
+        Order(
+            customer_id=2,
+            total_amount=1000
+        )
+    ]
+    
     db.session.add_all(employees)
     db.session.add_all(stocks)
     db.session.add_all(customers)
+    db.session.add_all(orders)
     db.session.commit()
     
     print("Tables seeded")
