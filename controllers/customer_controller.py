@@ -29,3 +29,48 @@ def create_customer():
 
     serialized_customer = customer_schema.dump(new_customer)
     return jsonify({'message': 'Customer created successfully', 'customer': serialized_customer}), 201
+
+@customer_bp.route('/delete/<int:customer_id>', methods=['DELETE'])
+def delete_customer(customer_id):
+    customer = Customer.query.get(customer_id)
+
+    if not customer:
+        return jsonify({'message': 'Customer not found'}), 404
+
+    db.session.delete(customer)
+    db.session.commit()
+
+    return jsonify({'message': 'Customer deleted successfully'}), 200
+
+@customer_bp.route('/<int:customer_id>', methods=['GET'])
+def get_customer(customer_id):
+    customer = Customer.query.get(customer_id)
+
+    if not customer:
+        return jsonify({'message': 'Customer not found'}), 404
+
+    serialized_customer = customer_schema.dump(customer)
+    return jsonify({'customer': serialized_customer}), 200
+
+@customer_bp.route('/update/<int:customer_id>', methods=['PUT'])
+def update_customer(customer_id):
+    customer = Customer.query.get(customer_id)
+
+    if not customer:
+        return jsonify({'message': 'Customer not found'}), 404
+
+    data = request.get_json()
+    customer_name = data.get('customer_name', customer.customer_name)
+    email = data.get('email', customer.email)
+    address = data.get('address', customer.address)
+    customer_number = data.get('customer_number', customer.customer_number)
+
+    customer.customer_name = customer_name
+    customer.email = email
+    customer.address = address
+    customer.customer_number = customer_number
+
+    db.session.commit()
+
+    serialized_customer = customer_schema.dump(customer)
+    return jsonify({'message': 'Customer updated successfully', 'customer': serialized_customer}), 200
