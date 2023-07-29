@@ -9,9 +9,7 @@ class Stock(db.Model):
     product_name = db.Column(db.String(100), nullable=False)
     quantity = db.Column(db.Integer, default=0, nullable=False)
     unit_price = db.Column(db.Float, nullable=False)
-    
-    orders = relationship('Order', backref='order_stock')
-    
+
 class StockSchema(ma.Schema):
     class Meta:
         fields = ('product_id', 'product_name', 'quantity', 'unit_price')

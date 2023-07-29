@@ -11,10 +11,8 @@ def create_order():
     data = request.get_json()
     customer_id = data.get('customer_id')
     total_amount = data.get('total_amount')
-
     if not customer_id or not total_amount:
         return jsonify({'message': 'Missing required fields'}), 400
-
     new_order = Order(customer_id=customer_id, total_amount=total_amount)
     db.session.add(new_order)
     db.session.commit()
@@ -31,7 +29,7 @@ def get_all_orders():
 @order_bp.route('/delete/<int:order_id>', methods=['DELETE'])
 def delete_order(order_id):
     order = Order.query.get(order_id)
-    
+
     if not order_id:
         return jsonify({'message': 'Order ID not provided'}), 400
 
