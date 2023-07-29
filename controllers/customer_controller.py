@@ -74,3 +74,14 @@ def update_customer(customer_id):
 
     serialized_customer = customer_schema.dump(customer)
     return jsonify({'message': 'Customer updated successfully', 'customer': serialized_customer}), 200
+
+# Endpoint to get all customers
+@customer_bp.route('/all', methods=['GET'])
+def get_all_customers():
+    # Retrieve all customers from the database
+    all_customers = Customer.query.all()
+
+    # Serialize the list of customers
+    serialized_customers = customers_schema.dump(all_customers)
+
+    return jsonify({'customers': serialized_customers}), 200
