@@ -154,3 +154,22 @@ def update_employee(employee_id):
         return jsonify({'message': 'Employee information updated successfully'}), 200
     except Exception as e:
         return jsonify({'error': 'Internal Server Error'}), 500
+    
+@auth_bp.route('/employees', methods=['GET'])
+@jwt_required()
+def get_all_employees():
+    try:
+        current_user = get_jwt_identity()
+
+        # Check if the current user is an admin
+        if not current_user['is_admin']:
+            return jsonify({'error': 'You are not authorized to access this endpoint'}), 403
+
+        # Query all employees from the database
+        employees = Employee.query.all()
+
+        serialized_employees = employees_schema.dump(employees)
+
+        return jsonify({'employees': serialized_employees}), 200
+    except Exception as e:
+        return jsonify({'error': 'Internal Server Error'}), 500

@@ -71,6 +71,81 @@ Admin access token
     "message": "Employee information updated successfully"
 }
 
+All employees:
+GET
+localhost:8080/auth/employees
+Admin access token
+{
+    "employees": List of all employees
+}
+
+
+Create stock:
+POST
+localhost:8080/inventory/create
+Admin access token
+{
+    "product_name": "Carara Marble",
+    "quantity": 35,
+    "unit_price": 1100
+}
+{
+    "inventory_item": {
+        "product_id": 3,
+        "product_name": "Carara Marble",
+        "quantity": 35,
+        "unit_price": 1100.0
+    },
+    "message": "Inventory item created successfully"
+}
+
+DELETE stock item"
+DELETE
+localhost:8080/inventory/delete/3
+Admin access token
+{
+    "message": "Inventory item deleted successfully"
+}
+
+Update stock item:
+PUT
+localhost:8080/inventory/update
+Access token
+{
+  "product_id": 1,
+  "product_name": "Calacatta Marble",
+  "quantity": 60,
+  "unit_price": 2000
+}
+{
+    "inventory_item": {
+        "product_id": 1,
+        "product_name": "Calacatta Marble",
+        "quantity": 60,
+        "unit_price": 2000.0
+    },
+    "message": "Inventory item updated successfully"
+}
+
+Get all stock:
+GET
+localhost:8080/inventory/all
+{
+    "inventory_items": [
+        {
+            "product_id": 2,
+            "product_name": "Black Granite",
+            "quantity": 50,
+            "unit_price": 1000.0
+        },
+        {
+            "product_id": 1,
+            "product_name": "Calacatta Marble",
+            "quantity": 60,
+            "unit_price": 2000.0
+        }
+    ]
+}
 
 ## R6	An ERD for your app
 
