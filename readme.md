@@ -10,7 +10,11 @@ If the business keeps using a manual paper based system whilst expecting busines
 
 ## R3	Why have you chosen this database system. What are the drawbacks compared to others?
 
+I have chosen PostgreSQL as my database system because it is an open source relational database which makes it free for access and have a large community that help develop, contribute and improve the software. PostgreSQL also has robust features, reliability, and performance. PostgreSQL is known for its ability to handle complex queries, support for advanced data types, and its ACID-compliant transactions, making it suitable for data-intensive applications. Additionally, PostgreSQL is an open-source database, providing cost-effectiveness and large community for support and continuous improvement. However, some drawbacks compared to other systems like MySQL and MongoDB include slightly higher complexity in setup and administration, and while it excels in handling structured data, NoSQL databases like MongoDB may perform better with unstructured data and high scalability requirements. Main reasons why i chose PostgreSQL is because it is open source and the capabilities of the database is more than enough for my project.
+
 ## R4	Identify and discuss the key functionalities and benefits of an ORM
+
+An Object-Relational Mapping (ORM) is a technique that helps developers work with databases using familiar object-oriented code. It takes away the difficulties of writing database queries, allowing developers to interact with the database as if it were a collection of objects. The benefits of using an ORM include easier data validation, compatibility with different platforms, simplified relationships between data, and faster development. There might be some trade offs in terms of performance and memory usage. Overall, ORM is a powerful tool that makes database interactions simpler and more efficient for developers.
 
 ## R5	Document all endpoints for your API
 
@@ -310,10 +314,52 @@ Access token
 }
 ## R6	An ERD for your app
 
+![My ERD](images\api_erd.jpg)
+
 ## R7	Detail any third party services that your app will use
+
+Flask: Flask is a 3rd party framework for Python. It provides tools and components to build web applications such as routing, request handling and response rendering. Flask is used to create my endpoints as well as the Blueprint functionality.
+
+SQLAlchemy: SQLAlchemy is an ORM library that is used to simplify database interactions in Python. This eliminates the need to write raw SQL queries and instead using Python objects.
+
+FLask-JWT-Extended: Is an extension for Flask that enables JWT based authentication and authorisation which also allows me to use access tokens to set up the authentication and access control of my API.
+
+Flask-Bcrypt: Is an extension for Flask that provides tools for hashing and encrypting passwords. This is used to securely store user passwords in the database.
+
+Marshmallow: Marshmallow is a library for object serialisation and deserialisation in Python. It helps convert complex data types like models into JSON or other formats when sending responses to employees.
+
+Postman: Postman is a API development tool that I used to design, test and document my APIs.
 
 ## R8	Describe your projects models in terms of the relationships they have with each other
 
+Customer Table -
+Primary Key: 'customer_id'
+Attributes: customer_id, customer_number, customer_name, email, and address.
+This table represents individual customers and their information. It has a one-to-many relationship with the 'order' table.
+One 'customer' can have multiple orders associated with them.
+
+Order Table -
+Primary Key: 'order_id'
+Attributes: order_id, customer_id, and total_amount.
+This table represents individual orders and their information in the database. It has a many-to-one relationship with the 'customer' table.
+Each 'Order' is associated with one specific 'Customer'
+
+Employee Table -
+Primary Key: 'employee_id'
+Attributes: employee_id, employee_email, employee_name, password, is_admin
+
+Stock Table -
+Primary Key: 'product_id'
+Attributes: product_id, product_name, quantity, unit_price.
+
 ## R9	Discuss the database relations to be implemented in your application
 
+I only have 1 database relation in my project and that is between customers and orders. I have implemented this relation by defining my order model by including a Foreign Key column that references customer id column in the customer table. I then defined the customer model with with 'backref' parameter to create a reverse reference from customer to order. Using 'relationship' allowed me to establish this link between my models. I was also planning to make a relation between stock and order for allocating stock when creating orders but I didn't have enough time.
+
 ## R10	Describe the way tasks are allocated and tracked in your project
+
+In my project, I used Trello as the tool to manage and keep track of tasks. Trello is a platform where tasks are organised as cards on boards. Each card represents a specific task and includes important details like descriptions and deadlines. I can easily see my tasks and update their progress by moving cards through different lists, such as "To Do," "In Progress," and "Completed."
+
+My Trello Board [My Trello Board](https://trello.com/invite/b/yQPjUT3m/ATTI500d4ea7e4801e4a2e92109c577574b94913EF88/api-webserver).
+
+![My Trello Image](images/trello_board.jpg)
