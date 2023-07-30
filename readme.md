@@ -147,6 +147,75 @@ localhost:8080/inventory/all
     ]
 }
 
+Create Customer:
+POST
+localhost:8080/customers/create
+Admin access token
+{
+  "customer_number": "0000000003",
+  "customer_name": "John Smith",
+  "email": "johnsmith@email.com",
+  "address": "125 Melbourne Street"
+}
+{
+    "customer": {
+        "address": "125 Melbourne Street",
+        "customer_id": 3,
+        "customer_name": "John Smith",
+        "customer_number": "0000000003",
+        "email": "johnsmith@email.com"
+    },
+    "message": "Customer created successfully"
+}
+
+Delete Customer:
+DELETE
+localhost:8080/customers/delete/3
+Admin access token
+{
+    "message": "Customer deleted successfully"
+}
+
+Get Customer Info:
+GET
+localhost:8080/customers/1
+Access token
+{
+    "customer": {
+        "address": "122 Main Street",
+        "customer_id": 1,
+        "customer_name": "Mariah Carey",
+        "customer_number": "0000000000",
+        "email": "mariahcarey1@email.com"
+    }
+}
+
+Update Customer:
+PUT
+http://localhost:8080/customers/update/1
+Access Token
+{
+  "customer_name": "Mariah Carey",
+  "address": "122 Main Street",
+  "email": "mariahcarey1@email.com",
+  "customer_number": "0000000000"
+}
+{
+    "customer": {
+        "address": "122 Main Street",
+        "customer_id": 1,
+        "customer_name": "Mariah Carey",
+        "customer_number": "0000000000",
+        "email": "mariahcarey1@email.com"
+    },
+    "message": "Customer updated successfully"
+}
+
+Get all customers:
+GET
+localhost:8080/customers/all
+Access Token
+
 ## R6	An ERD for your app
 
 ## R7	Detail any third party services that your app will use
