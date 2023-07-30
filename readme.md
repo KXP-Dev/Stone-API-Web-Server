@@ -215,7 +215,99 @@ Get all customers:
 GET
 localhost:8080/customers/all
 Access Token
+{
+    "customers": [
+        {
+            "address": "125 Sydney Street",
+            "customer_id": 2,
+            "customer_name": "Jane Smith",
+            "customer_number": "0000000002",
+            "email": "janesmith@email.com"
+        },
+        {
+            "address": "122 Main Street",
+            "customer_id": 1,
+            "customer_name": "Mariah Carey",
+            "customer_number": "0000000000",
+            "email": "mariahcarey1@email.com"
+        }
+    ]
+}
 
+Create order:
+POST
+http://localhost:8080/orders/create
+Admin access token
+{
+  "customer_id": 2,
+  "total_amount": 7000
+}
+{
+    "message": "Order created successfully",
+    "order": {
+        "customer_id": 2,
+        "order_id": 5,
+        "total_amount": 7000.0
+    }
+}
+
+Get all orders:
+GET
+localhost:8080/orders/all
+Access Token
+{
+    "orders": [
+        {
+            "customer_id": 2,
+            "order_id": 1,
+            "total_amount": 4000.0
+        },
+        {
+            "customer_id": 1,
+            "order_id": 2,
+            "total_amount": 6000.0
+        },
+        {
+            "customer_id": 2,
+            "order_id": 3,
+            "total_amount": 9000.0
+        },
+        {
+            "customer_id": 1,
+            "order_id": 4,
+            "total_amount": 8000.0
+        },
+        {
+            "customer_id": 2,
+            "order_id": 5,
+            "total_amount": 7000.0
+        }
+    ]
+}
+
+Delete order:
+DELETE
+localhost:8080/orders/delete/5
+Admin access token
+{
+    "message": "Order deleted successfully"
+}
+
+Update order:
+PUT
+localhost:8080/orders/update/4
+Access token
+{
+    "total_amount": 8200
+}
+{
+    "message": "Order updated successfully",
+    "order": {
+        "customer_id": 1,
+        "order_id": 4,
+        "total_amount": 8200.0
+    }
+}
 ## R6	An ERD for your app
 
 ## R7	Detail any third party services that your app will use
