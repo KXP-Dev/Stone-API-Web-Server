@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify
 from init import db
 from models.stock import Stock, StockSchema
+from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
 
 inventory_bp = Blueprint('inventory', __name__, url_prefix='/inventory')
 stock_schema = StockSchema()
@@ -8,6 +9,7 @@ stocks_schema = StockSchema(many=True)
 
 # Endpoint to create a new inventory item
 @inventory_bp.route('/create', methods=['POST'])
+@jwt_required()
 def create_inventory_item():
     data = request.get_json()
     product_name = data.get('product_name')
@@ -25,6 +27,7 @@ def create_inventory_item():
     return jsonify({'message': 'Inventory item created successfully', 'inventory_item': serialized_item}), 201
 
 @inventory_bp.route('/delete', methods=['DELETE'])
+@jwt_required()
 def delete_inventory_item():
     data = request.get_json()
     product_id = data.get('product_id')
@@ -42,6 +45,7 @@ def delete_inventory_item():
     return jsonify({'message': 'Inventory item deleted successfully'}), 200
 
 @inventory_bp.route('/update', methods=['PUT'])
+@jwt_required()
 def update_inventory_item():
     data = request.get_json()
     product_id = data.get('product_id')

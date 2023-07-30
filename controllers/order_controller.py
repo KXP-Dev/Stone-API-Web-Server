@@ -1,12 +1,14 @@
 from flask import Blueprint, request, jsonify
 from init import db
 from models.orders import Order, OrderSchema
+from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
 
 order_bp = Blueprint('order', __name__, url_prefix='/orders')
 order_schema = OrderSchema()
 orders_schema = OrderSchema(many=True)
 
 @order_bp.route('/create', methods=['POST'])
+@jwt_required()
 def create_order():
     data = request.get_json()
     customer_id = data.get('customer_id')
@@ -27,6 +29,7 @@ def get_all_orders():
     return jsonify({'orders': serialized_orders}), 200
 
 @order_bp.route('/delete/<int:order_id>', methods=['DELETE'])
+@jwt_required()
 def delete_order(order_id):
     order = Order.query.get(order_id)
 
@@ -42,6 +45,7 @@ def delete_order(order_id):
     return jsonify({'message': 'Order deleted successfully'}), 200
 
 @order_bp.route('/update/<int:order_id>', methods=['PUT'])
+@jwt_required()
 def update_order(order_id):
     order = Order.query.get(order_id)
 

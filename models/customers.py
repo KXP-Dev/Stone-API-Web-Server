@@ -1,4 +1,5 @@
 from init import db, ma
+from sqlalchemy import Column, Integer, ForeignKey, DateTime, Float
 from sqlalchemy.orm import relationship
 
 class Customer(db.Model):

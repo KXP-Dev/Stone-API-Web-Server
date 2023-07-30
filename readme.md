@@ -2,13 +2,75 @@
 
 ## R1	Identification of the problem you are trying to solve by building this particular app.
 
+I'm trying to solve the main problem a small business would eventually reach when their business is rapidly growing, they are managing more employees, handling more stock and getting an increased intake of customers. Most small businesses would have started with a manual paper based system, which would be perfectly fine for a much smaller business just starting out but eventually a transition to a relational database system would be incredibly beneficial to the business' growth. I've designed my web API and database specifically for a stonemason business that stocks and sells stone materials.
+
 ## R2	Why is it a problem that needs solving?
+
+If the business keeps using a manual paper based system whilst expecting business growth then the business will run into many problems. Handling a warehouse with thousands of stock materials and products would easily overwhelm a business that hasn't transitioned. If the business hires more employees it would be difficult to manage them, their employee accounts and employee authorisation and priviliges. With business growth comes more customers and orders. Using the app the business will be able to efficiently and easily manage their orders, employees, customers and stock whilst allowing for upscalability and data security for the business.
 
 ## R3	Why have you chosen this database system. What are the drawbacks compared to others?
 
 ## R4	Identify and discuss the key functionalities and benefits of an ORM
 
 ## R5	Document all endpoints for your API
+
+Register new employee:
+POST
+localhost:8080/auth/register
+Body - raw - JSON
+{
+  "employee_name": "John Doe",
+  "employee_email": "johndoe@email.com",
+  "password": "password123"
+}
+{
+    "employee_email": "rickgrimes@email.com",
+    "employee_id": 5,
+    "employee_name": "Rick Grimes",
+    "is_admin": false
+}
+
+Employee login:
+POST
+localhost:8080/auth/login
+{
+    "employee_email": "kimperez@admin.com",
+    "password": "adminpw"
+}
+{
+    "employee_email": "kimperez@admin.com",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY5MDY4NzcwMywianRpIjoiYzVmZmJmMDMtNDQwYy00YzI2LTk5NTMtNjUxN2QwZjlhY2Q5IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE2OTA2ODc3MDMsImV4cCI6MTY5MDc3NDEwM30.bl6ZNVwRR03uc6WzNT6-qjcMAZaeChrmkWf-NMahdu4"
+}
+
+Check admin:
+POST
+localhost:8080/auth/check-admin
+Admin access token
+{
+    "message": "User is an admin"
+}
+
+Delete employee:
+DELETE
+localhost:8080/auth/delete/5
+Admin access token
+{
+    "message": "Employee deleted successfully"
+}
+
+Update employee:
+PUT
+localhost:8080/auth/update/4
+Admin access token
+{
+  "employee_name": "Kaiser Perez",
+  "employee_email": "kaiserperez1@email.com",
+  "is_admin": true
+}
+{
+    "message": "Employee information updated successfully"
+}
+
 
 ## R6	An ERD for your app
 
